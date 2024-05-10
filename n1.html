@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://unpkg.com/wavesurfer.js@7"></script>
+</head>
+<style type="text/css">
+	*{
+		padding: 0;
+		margin: 0;
+		font-family: 'poppins',sans-serif;
+	}
+	.hero{
+		width: 100%;
+		height: 100vh;
+		background-color: #a9a9a9;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.music {
+		width: 90%;
+		max-width: 90%;
+		padding: 30px;
+		box-shadow: 0 0 20px rgba(red,0,0,0.4);
+		background-color: #fff;
+		color: #555;
+		border-radius: 8px;
+	}
+	.music .track{
+		display: flex;
+		align-items: center;
+		margin-top: 20px;
+	}
+	.music .track img{
+		width: 70px;
+		margin-right: 30px;
+		cursor: pointer;
+	}
+	.music .track div{
+		flex: 1;
+	}
+</style>
+<body>
+
+	<div class="music">
+		<p>Artist:NEFFEX</p>
+		<h1>Good Day (Wake Up)</h1>
+		<div class="track">
+			<img src="media/play.png" id="playBtn">
+			<div id="waveform"></div>
+		</div>
+	</div>
+<script type="text/javascript">
+	var playBtn = document.getElementById('playBtn');
+
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: '#ddd',
+    progressColor: '#ff006c',
+    barWidth: 4,
+    responsive: true,
+    height: 90,
+    barRadius: 3,
+    fftSize: 16384 // Increase this value to display all frequency points
+});
+
+	wavesurfer.load('media/Good-Day-Wake-Up-NEFFEX.mp3');
+	playBtn.onclick = function(){
+		wavesurfer.playPause();
+		if (playBtn.src.includes('play.png')) {
+			playBtn.src='media/pause.png'
+		}
+		else {
+			playBtn.src='media/play.png'
+		}
+	}
+	wavesurfer.on('finish',function(){
+		playBtn.src='media/play.png'
+		wavesurfer.stop();
+	})
+</script>
+</body>
+</html>
